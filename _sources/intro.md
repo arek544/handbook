@@ -1,3 +1,5 @@
+![](./logo.png)
+
 # The Hitchhiker's Guide to Data Science
 
 ## About the author
