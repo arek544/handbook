@@ -10,7 +10,7 @@
     - how do you access network resources,
     - what ports do you need to map to reach the outside world.
 
-    ![Untitled](ATTACHMENTS/Untitled%203.png)
+    ![Untitled](ATTACHMENTS/Untitled-3.png)
     
 
 ---

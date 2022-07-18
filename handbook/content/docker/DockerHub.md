@@ -12,7 +12,7 @@
 
 - by default, the Docker CLI uses DockerHub, you can use `docker pull image-name` to download a given image from DockerHub
 
-![Untitled](ATTACHMENTS/Untitled%201.png)
+![Untitled](ATTACHMENTS/Untitled-1.png)
 
 # **Deploy containers (push)**
 
