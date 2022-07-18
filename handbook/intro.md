@@ -6,3 +6,5 @@ I am a machine learning and Python programming enthusiast. Professionally, I wor
 
 ## About this blog
 I would like to share with you my experiences from my journey through the fields of **software engineering**, **data engineering**, **data mining** and **machine learning**. 
+
+Good luck on your journey to Data Science!
