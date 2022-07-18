@@ -6,9 +6,9 @@ parts:
 
 - caption: Docker
   chapters:
-  - file: content/Docker - table of content.md
+  - file: content/docker/Docker - table of content.md
     sections: 
-    # - file: content/What is Docker.md
+    - file: content/docker/What is Docker.md
     - file: content/docker/Containers vs Virtual Machines.md
     - file: content/docker/Docker image.md
     - file: content/docker/Dockerfile.md
@@ -20,8 +20,7 @@ parts:
     - file: content/docker/Build a image.md
     - file: content/docker/Downloading the image.md
     - file: content/docker/Manage containers and images.md
-    - file: content/docker/What is Docker.md
-    # - file: content/Starting up container.md
+    - file: content/docker/Starting up container.md
     - file: content/docker/Exposing ports.md
     - file: content/docker/Volumes.md
     - file: content/docker/Multi-stage build.md
@@ -32,7 +31,6 @@ parts:
     - file: content/docker/docker-compose for detached mode (run in background).md
     - file: content/docker/Update only one container service via docker-compose.md
     - file: content/docker/Micro-services with Docker.md
-    - file: content/docker/Starting up container.md
     - file: content/docker/Avoiding Permission Issues With Docker-Created Files.md
     - file: content/docker/Kill container from inside.md
     - file: content/docker/Troubleshooting.md
