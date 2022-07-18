@@ -6,7 +6,6 @@ parts:
 
 - caption: Docker
   chapters:
-  - file: content/docker/Docker - table of content.md
   - file: content/docker/Intro.md
     sections: 
     - file: content/docker/What is Docker.md
