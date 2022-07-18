@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>docker-compose for detached mode &#8212; The Hitchhiker&#39;s Guide to Data Science</title>
+    <title>Fundamentals &#8212; The Hitchhiker&#39;s Guide to Data Science</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Update only one container/service via docker-compose" href="Update%20only%20one%20container%20service%20via%20docker-compose.html" />
-    <link rel="prev" title="Execute jobs inside container" href="Execute%20jobs%20inside%20container.html" />
+    <link rel="next" title="Docker build" href="Build%20a%20image.html" />
+    <link rel="prev" title="Install Docker Toolbox" href="Install%20Docker%20Toolbox.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -188,11 +188,11 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="Fundamentals.html">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
    Fundamentals
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
@@ -262,23 +262,23 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="Miscellaneous.html">
    Miscellaneous
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
   <label for="toctree-checkbox-5">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="Execute%20jobs%20inside%20container.html">
      Execute jobs inside container
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="docker-compose%20for%20detached%20mode%20%28run%20in%20background%29.html">
      docker-compose for detached mode
     </a>
    </li>
@@ -488,7 +488,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/docker/docker-compose for detached mode (run in background).html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/docker/Fundamentals.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -516,7 +516,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../_sources/content/docker/docker-compose for detached mode (run in background).md"
+        <a href="../../_sources/content/docker/Fundamentals.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -565,7 +565,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>docker-compose for detached mode</h1>
+                <h1>Fundamentals</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -577,25 +577,9 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="docker-compose-for-detached-mode">
-<h1>docker-compose for detached mode<a class="headerlink" href="#docker-compose-for-detached-mode" title="Permalink to this headline">#</a></h1>
-<p>#docker #compose #detached #background #interactive #stdin #tty</p>
-<p>you have to use <code class="docutils literal notranslate"><span class="pre">tty:</span> <span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">stdin_open:</span> <span class="pre">true</span></code>. Here is a minimal example:</p>
-<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>version: <span class="s2">&quot;3&quot;</span>
-services:
-  alpine1:
-    image: alpine
-    tty: true
-    stdin_open: true
-</pre></div>
-</div>
-<p>Start with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span>
-</pre></div>
-</div>
-<p>or</p>
-<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>docker-compose up --detach
-</pre></div>
+  <section class="tex2jax_ignore mathjax_ignore" id="fundamentals">
+<h1>Fundamentals<a class="headerlink" href="#fundamentals" title="Permalink to this headline">#</a></h1>
+<div class="toctree-wrapper compound">
 </div>
 </section>
 
@@ -626,17 +610,17 @@ services:
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Execute%20jobs%20inside%20container.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Install%20Docker%20Toolbox.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Execute jobs inside container</p>
+            <p class="prev-next-title">Install Docker Toolbox</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Update%20only%20one%20container%20service%20via%20docker-compose.html" title="next page">
+    <a class='right-next' id="next-link" href="Build%20a%20image.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Update only one container/service via docker-compose</p>
+        <p class="prev-next-title">Docker build</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
