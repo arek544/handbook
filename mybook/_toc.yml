@@ -1,0 +1,67 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+format: jb-book
+root: intro.md
+parts:
+
+- caption: Docker
+  chapters:
+  - file: content/Docker - table of content.md
+    sections: 
+    # - file: content/What is Docker.md
+    - file: content/docker/Containers vs Virtual Machines.md
+    - file: content/docker/Docker image.md
+    - file: content/docker/Dockerfile.md
+    - file: content/docker/Docker compose.md
+    - file: content/docker/DockerHub.md
+    - file: content/docker/Container life-cycle.md
+    - file: content/docker/Install Docker on Ubuntu.md
+    - file: content/docker/Install Docker Toolbox.md
+    - file: content/docker/Build a image.md
+    - file: content/docker/Downloading the image.md
+    - file: content/docker/Manage containers and images.md
+    - file: content/docker/What is Docker.md
+    # - file: content/Starting up container.md
+    - file: content/docker/Exposing ports.md
+    - file: content/docker/Volumes.md
+    - file: content/docker/Multi-stage build.md
+    - file: content/docker/Expose range of ports to docker container.md
+    - file: content/docker/Exposing a port on a live Docker container.md
+    - file: content/docker/Dockerfile templates.md
+    - file: content/docker/Execute jobs inside container.md
+    - file: content/docker/docker-compose for detached mode (run in background).md
+    - file: content/docker/Update only one container service via docker-compose.md
+    - file: content/docker/Micro-services with Docker.md
+    - file: content/docker/Starting up container.md
+    - file: content/docker/Avoiding Permission Issues With Docker-Created Files.md
+    - file: content/docker/Kill container from inside.md
+    - file: content/docker/Troubleshooting.md
+    - file: content/docker/Duplicate running docker container.md
+
+- caption: Unix
+  chapters: 
+  - file: content/unix/Unix - intro.md
+
+- caption: Virtual environments
+  chapters: 
+  - file: content/virtual_environments/virtualenv.md
+
+- caption: Jupyter Notebook & Jupyter Lab
+  chapters: 
+  - file: content/jupyter/init.md
+
+- caption: Git & GitHub
+  chapters: 
+  - file: content/git_github/init.md
+
+- caption: Visual Studio Code
+  chapters: 
+  - file: content/vsc/init.md
+
+- caption: Apache Airflow
+  chapters: 
+  - file: content/airflow/init.md
+
+- caption: Data Version Control
+  chapters: 
+  - file: content/dvc/init.md
