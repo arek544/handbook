@@ -7,6 +7,7 @@ parts:
 - caption: Docker
   chapters:
   - file: content/docker/Docker - table of content.md
+  - file: content/docker/Intro.md
     sections: 
     - file: content/docker/What is Docker.md
     - file: content/docker/Containers vs Virtual Machines.md
@@ -15,18 +16,26 @@ parts:
     - file: content/docker/Docker compose.md
     - file: content/docker/DockerHub.md
     - file: content/docker/Container life-cycle.md
+  - file: content/docker/Setup.md
+    sections: 
     - file: content/docker/Install Docker on Ubuntu.md
     - file: content/docker/Install Docker Toolbox.md
+  - file: content/docker/Fundamentals.md
+    sections: 
     - file: content/docker/Build a image.md
     - file: content/docker/Downloading the image.md
     - file: content/docker/Manage containers and images.md
     - file: content/docker/Starting up container.md
     - file: content/docker/Exposing ports.md
     - file: content/docker/Volumes.md
+  - file: content/docker/Advanced.md
+    sections: 
     - file: content/docker/Multi-stage build.md
     - file: content/docker/Expose range of ports to docker container.md
     - file: content/docker/Exposing a port on a live Docker container.md
     - file: content/docker/Dockerfile templates.md
+  - file: content/docker/Miscellaneous.md
+    sections: 
     - file: content/docker/Execute jobs inside container.md
     - file: content/docker/docker-compose for detached mode (run in background).md
     - file: content/docker/Update only one container service via docker-compose.md
