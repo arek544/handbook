@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Exposing ports" href="Exposing%20ports.html" />
-    <link rel="prev" title="Manage containers" href="Manage%20containers%20and%20images.html" />
+    <link rel="next" title="Manage containers" href="Manage%20containers%20and%20images.html" />
+    <link rel="prev" title="Downloading the image" href="Downloading%20the%20image.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -203,14 +203,14 @@ const thebe_selector_output = ".output, .cell_output"
      Downloading the image
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Manage%20containers%20and%20images.html">
-     Manage containers
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Starting up container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Manage%20containers%20and%20images.html">
+     Manage containers
     </a>
    </li>
    <li class="toctree-l2">
@@ -220,7 +220,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Volumes.html">
-     Volumes
+     Volumes - Persistent Data in Containers
     </a>
    </li>
   </ul>
@@ -241,18 +241,28 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
+     duplicate running docker container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Update%20given%20container%20service%20via%20docker-compose.html">
+     Update given container/service via docker-compose
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="Expose%20range%20of%20ports%20to%20docker%20container.html">
      Expose many ports to docker container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Exposing%20a%20port%20on%20a%20live%20Docker%20container.html">
-     Exposing a port on a live Docker container
+    <a class="reference internal" href="Execute%20jobs%20inside%20container.html">
+     Execute jobs inside container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Dockerfile%20templates.html">
-     Dockerfile templates
+    <a class="reference internal" href="Dockerfile%20template.html">
+     Dockerfile template
     </a>
    </li>
   </ul>
@@ -268,43 +278,18 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Execute%20jobs%20inside%20container.html">
-     Execute jobs inside container
+    <a class="reference internal" href="Docker%20rootless.html">
+     Docker-rootless
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="docker-compose%20for%20detached%20mode%20%28run%20in%20background%29.html">
-     docker-compose for detached mode
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Update%20only%20one%20container%20service%20via%20docker-compose.html">
-     Update only one container/service via docker-compose
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Micro-services%20with%20Docker.html">
-     Micro-services with Docker
+    <a class="reference internal" href="Docker%20in%20docker.html">
+     Docker in docker
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Avoiding%20Permission%20Issues%20With%20Docker-Created%20Files.html">
      Avoiding Permission Issues With Docker-Created Files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Kill%20container%20from%20inside.html">
-     Kill container from inside
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Troubleshooting.html">
-     Troubleshooting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
-     duplicate running docker container
     </a>
    </li>
   </ul>
@@ -746,7 +731,10 @@ title="Print to PDF"
 <li><p><code class="docutils literal notranslate"><span class="pre">e</span></code>defines key value pairs to set in the container’s environment when it starts up</p></li>
 </ul>
 <p>Example with PySpark:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -it -p <span class="m">8888</span>:8888 -v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">:/home/jovyan/work&quot;</span> jupyter/pyspark-notebook  --name spark
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -it 
+			-p <span class="m">8888</span>:8888 
+			-v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">:/home/jovyan/work&quot;</span> jupyter/pyspark-notebook  
+			--name spark
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">$PWD:/home/jovyan/work</span></code> allows us to map our <code class="docutils literal notranslate"><span class="pre">spark-docker</span></code> folder (which should be our current directory - $PWD) to the container’s <code class="docutils literal notranslate"><span class="pre">/home/joyvan/work</span></code> working directory (i.e., the directory the Jupyter notebook will run from).</p>
@@ -786,7 +774,7 @@ title="Print to PDF"
 <li><p><a class="reference external" href="http://maxmelnick.com/2016/06/04/spark-docker.html">http://maxmelnick.com/2016/06/04/spark-docker.html</a></p></li>
 <li><p><a class="reference external" href="http://ondata.blog/articles/getting-started-apache-spark-pyspark-and-jupyter-in-a-docker-container/">http://ondata.blog/articles/getting-started-apache-spark-pyspark-and-jupyter-in-a-docker-container/</a></p></li>
 <li><p><a class="reference external" href="https://spin.atomicobject.com/2018/10/04/docker-command-line/">https://spin.atomicobject.com/2018/10/04/docker-command-line/</a></p></li>
-<li><p><a class="reference external" href="https://phoenixnap.com/kb/docker-run-command-with-examples">How to Use Docker Run Command with Examples (phoenixnap.com)</a> #todo</p></li>
+<li><p><a class="reference external" href="https://phoenixnap.com/kb/docker-run-command-with-examples">How to Use Docker Run Command with Examples (phoenixnap.com)</a></p></li>
 </ul>
 <p><a class="reference external" href="https://stackoverflow.com/questions/36249744/interactive-shell-using-docker-compose">https://stackoverflow.com/questions/36249744/interactive-shell-using-docker-compose</a></p>
 </section>
@@ -818,17 +806,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Manage%20containers%20and%20images.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Downloading%20the%20image.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Manage containers</p>
+            <p class="prev-next-title">Downloading the image</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Exposing%20ports.html" title="next page">
+    <a class='right-next' id="next-link" href="Manage%20containers%20and%20images.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Exposing ports</p>
+        <p class="prev-next-title">Manage containers</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -4,7 +4,7 @@
 
 you have to use `tty: true` and `stdin_open: true`. Here is a minimal example:
 
-```docker
+```yaml
 version: "3"
 services:
   alpine1:
@@ -16,12 +16,12 @@ services:
 
 Start with:
 
-```
+```bash
 docker-compose up -d
 ```
 
 or
 
-```docker
+```bash
 docker-compose up --detach
 ```

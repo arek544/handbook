@@ -17,8 +17,8 @@
 # **Deploy containers (push)**
 
 ```bash
-sudo docker login
-sudo docker push image-name
+docker login
+docker push image-name
 ```
 
 > ## Remark

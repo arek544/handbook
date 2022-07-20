@@ -22,6 +22,3 @@ docker build -f docker/Dockefile -t my-rails-app:latest .
 
 > All Docker images have an image identifier (a generated, 12-character alphanumeric string). They may also be given a name and a tag. If only a name is provided, the default tag of “latest” is used. Image names and tags help tremendously to readily (and unambiguously) reference specific images.
 
----
-
-Next: [Starting up container](../../Docker/Starting%20up%20container.md)

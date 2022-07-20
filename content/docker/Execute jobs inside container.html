@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="docker-compose for detached mode" href="docker-compose%20for%20detached%20mode%20%28run%20in%20background%29.html" />
-    <link rel="prev" title="Miscellaneous" href="Miscellaneous.html" />
+    <link rel="next" title="Dockerfile template" href="Dockerfile%20template.html" />
+    <link rel="prev" title="Expose many ports to docker container" href="Expose%20range%20of%20ports%20to%20docker%20container.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -204,13 +204,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Manage%20containers%20and%20images.html">
-     Manage containers
+    <a class="reference internal" href="Starting%20up%20container.html">
+     Starting up container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Starting%20up%20container.html">
-     Starting up container
+    <a class="reference internal" href="Manage%20containers%20and%20images.html">
+     Manage containers
     </a>
    </li>
    <li class="toctree-l2">
@@ -220,24 +220,34 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Volumes.html">
-     Volumes
+     Volumes - Persistent Data in Containers
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="Advanced.html">
    Advanced
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="Multi-stage%20build.html">
      Multi-stage build
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
+     duplicate running docker container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Update%20given%20container%20service%20via%20docker-compose.html">
+     Update given container/service via docker-compose
     </a>
    </li>
    <li class="toctree-l2">
@@ -245,66 +255,41 @@ const thebe_selector_output = ".output, .cell_output"
      Expose many ports to docker container
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Exposing%20a%20port%20on%20a%20live%20Docker%20container.html">
-     Exposing a port on a live Docker container
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Dockerfile%20templates.html">
-     Dockerfile templates
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="Miscellaneous.html">
-   Miscellaneous
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Execute jobs inside container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="docker-compose%20for%20detached%20mode%20%28run%20in%20background%29.html">
-     docker-compose for detached mode
+    <a class="reference internal" href="Dockerfile%20template.html">
+     Dockerfile template
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="Miscellaneous.html">
+   Miscellaneous
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Docker%20rootless.html">
+     Docker-rootless
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Update%20only%20one%20container%20service%20via%20docker-compose.html">
-     Update only one container/service via docker-compose
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Micro-services%20with%20Docker.html">
-     Micro-services with Docker
+    <a class="reference internal" href="Docker%20in%20docker.html">
+     Docker in docker
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Avoiding%20Permission%20Issues%20With%20Docker-Created%20Files.html">
      Avoiding Permission Issues With Docker-Created Files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Kill%20container%20from%20inside.html">
-     Kill container from inside
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Troubleshooting.html">
-     Troubleshooting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
-     duplicate running docker container
     </a>
    </li>
   </ul>
@@ -711,17 +696,17 @@ took 0.195248 sLines with K: 1135, lines with trial: 108...
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Miscellaneous.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Expose%20range%20of%20ports%20to%20docker%20container.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Miscellaneous</p>
+            <p class="prev-next-title">Expose many ports to docker container</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="docker-compose%20for%20detached%20mode%20%28run%20in%20background%29.html" title="next page">
+    <a class='right-next' id="next-link" href="Dockerfile%20template.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">docker-compose for detached mode</p>
+        <p class="prev-next-title">Dockerfile template</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

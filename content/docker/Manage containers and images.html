@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Starting up container" href="Starting%20up%20container.html" />
-    <link rel="prev" title="Downloading the image" href="Downloading%20the%20image.html" />
+    <link rel="next" title="Exposing ports" href="Exposing%20ports.html" />
+    <link rel="prev" title="Starting up container" href="Starting%20up%20container.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -203,14 +203,14 @@ const thebe_selector_output = ".output, .cell_output"
      Downloading the image
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Manage containers
-    </a>
-   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Starting%20up%20container.html">
      Starting up container
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Manage containers
     </a>
    </li>
    <li class="toctree-l2">
@@ -220,7 +220,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Volumes.html">
-     Volumes
+     Volumes - Persistent Data in Containers
     </a>
    </li>
   </ul>
@@ -241,18 +241,28 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
+     duplicate running docker container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Update%20given%20container%20service%20via%20docker-compose.html">
+     Update given container/service via docker-compose
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="Expose%20range%20of%20ports%20to%20docker%20container.html">
      Expose many ports to docker container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Exposing%20a%20port%20on%20a%20live%20Docker%20container.html">
-     Exposing a port on a live Docker container
+    <a class="reference internal" href="Execute%20jobs%20inside%20container.html">
+     Execute jobs inside container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Dockerfile%20templates.html">
-     Dockerfile templates
+    <a class="reference internal" href="Dockerfile%20template.html">
+     Dockerfile template
     </a>
    </li>
   </ul>
@@ -268,43 +278,18 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Execute%20jobs%20inside%20container.html">
-     Execute jobs inside container
+    <a class="reference internal" href="Docker%20rootless.html">
+     Docker-rootless
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="docker-compose%20for%20detached%20mode%20%28run%20in%20background%29.html">
-     docker-compose for detached mode
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Update%20only%20one%20container%20service%20via%20docker-compose.html">
-     Update only one container/service via docker-compose
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Micro-services%20with%20Docker.html">
-     Micro-services with Docker
+    <a class="reference internal" href="Docker%20in%20docker.html">
+     Docker in docker
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Avoiding%20Permission%20Issues%20With%20Docker-Created%20Files.html">
      Avoiding Permission Issues With Docker-Created Files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Kill%20container%20from%20inside.html">
-     Kill container from inside
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Troubleshooting.html">
-     Troubleshooting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
-     duplicate running docker container
     </a>
    </li>
   </ul>
@@ -662,6 +647,16 @@ title="Print to PDF"
 </pre></div>
 </div>
 </li>
+<li><p>start container</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker start &lt;container-id/name&gt;
+</pre></div>
+</div>
+</li>
+<li><p>stop container</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker stop &lt;container-id/name&gt;
+</pre></div>
+</div>
+</li>
 <li><p>forcefully stop a running container</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker container <span class="nb">kill</span> CONTAINER-NAME-OR-ID
 </pre></div>
@@ -674,6 +669,21 @@ title="Print to PDF"
 </li>
 <li><p>view detailed information about a running container</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker inspect CONTAINER-NAME-OR-ID
+</pre></div>
+</div>
+</li>
+<li><p>pause container</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pause &lt;container-id/name&gt;
+</pre></div>
+</div>
+</li>
+<li><p>unpause container</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker unpause &lt;container-id/name&gt;
+</pre></div>
+</div>
+</li>
+<li><p>restart container</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker restart &lt;container-id/name&gt;
 </pre></div>
 </div>
 </li>
@@ -692,11 +702,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </li>
-<li><p>to remove dangling images</p>
+<li><p>to remove dangling images (those not attached to a container, or a dependency for an image that is)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker image prune
 </pre></div>
 </div>
-<p>(those not attached to a container, or a dependency for an image that is)</p>
 </li>
 <li><p>to remove all images</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker image prune -a
@@ -741,17 +750,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Downloading%20the%20image.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Starting%20up%20container.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Downloading the image</p>
+            <p class="prev-next-title">Starting up container</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Starting%20up%20container.html" title="next page">
+    <a class='right-next' id="next-link" href="Exposing%20ports.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Starting up container</p>
+        <p class="prev-next-title">Exposing ports</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

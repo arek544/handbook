@@ -52,8 +52,6 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Dockerfile templates" href="Dockerfile%20templates.html" />
-    <link rel="prev" title="Expose many ports to docker container" href="Expose%20range%20of%20ports%20to%20docker%20container.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -113,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
   Docker
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="Intro.html">
    Intro
@@ -204,13 +202,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Manage%20containers%20and%20images.html">
-     Manage containers
+    <a class="reference internal" href="Starting%20up%20container.html">
+     Starting up container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Starting%20up%20container.html">
-     Starting up container
+    <a class="reference internal" href="Manage%20containers%20and%20images.html">
+     Manage containers
     </a>
    </li>
    <li class="toctree-l2">
@@ -220,24 +218,34 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Volumes.html">
-     Volumes
+     Volumes - Persistent Data in Containers
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="Advanced.html">
    Advanced
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="Multi-stage%20build.html">
      Multi-stage build
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
+     duplicate running docker container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Update%20given%20container%20service%20via%20docker-compose.html">
+     Update given container/service via docker-compose
     </a>
    </li>
    <li class="toctree-l2">
@@ -245,14 +253,14 @@ const thebe_selector_output = ".output, .cell_output"
      Expose many ports to docker container
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Exposing a port on a live Docker container
+   <li class="toctree-l2">
+    <a class="reference internal" href="Execute%20jobs%20inside%20container.html">
+     Execute jobs inside container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Dockerfile%20templates.html">
-     Dockerfile templates
+    <a class="reference internal" href="Dockerfile%20template.html">
+     Dockerfile template
     </a>
    </li>
   </ul>
@@ -268,43 +276,18 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="Execute%20jobs%20inside%20container.html">
-     Execute jobs inside container
+    <a class="reference internal" href="Docker%20rootless.html">
+     Docker-rootless
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="docker-compose%20for%20detached%20mode%20%28run%20in%20background%29.html">
-     docker-compose for detached mode
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Update%20only%20one%20container%20service%20via%20docker-compose.html">
-     Update only one container/service via docker-compose
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Micro-services%20with%20Docker.html">
-     Micro-services with Docker
+    <a class="reference internal" href="Docker%20in%20docker.html">
+     Docker in docker
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Avoiding%20Permission%20Issues%20With%20Docker-Created%20Files.html">
      Avoiding Permission Issues With Docker-Created Files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Kill%20container%20from%20inside.html">
-     Kill container from inside
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Troubleshooting.html">
-     Troubleshooting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
-     duplicate running docker container
     </a>
    </li>
   </ul>
@@ -628,20 +611,6 @@ docker inspect container_name <span class="p">|</span> grep IPAddress
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Expose%20range%20of%20ports%20to%20docker%20container.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Expose many ports to docker container</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="Dockerfile%20templates.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dockerfile templates</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

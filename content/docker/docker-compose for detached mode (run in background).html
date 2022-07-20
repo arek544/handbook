@@ -52,8 +52,6 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Update only one container/service via docker-compose" href="Update%20only%20one%20container%20service%20via%20docker-compose.html" />
-    <link rel="prev" title="Execute jobs inside container" href="Execute%20jobs%20inside%20container.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -113,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
   Docker
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="Intro.html">
    Intro
@@ -204,13 +202,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Manage%20containers%20and%20images.html">
-     Manage containers
+    <a class="reference internal" href="Starting%20up%20container.html">
+     Starting up container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Starting%20up%20container.html">
-     Starting up container
+    <a class="reference internal" href="Manage%20containers%20and%20images.html">
+     Manage containers
     </a>
    </li>
    <li class="toctree-l2">
@@ -220,7 +218,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Volumes.html">
-     Volumes
+     Volumes - Persistent Data in Containers
     </a>
    </li>
   </ul>
@@ -241,70 +239,55 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
+     duplicate running docker container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Update%20given%20container%20service%20via%20docker-compose.html">
+     Update given container/service via docker-compose
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="Expose%20range%20of%20ports%20to%20docker%20container.html">
      Expose many ports to docker container
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Exposing%20a%20port%20on%20a%20live%20Docker%20container.html">
-     Exposing a port on a live Docker container
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Dockerfile%20templates.html">
-     Dockerfile templates
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="Miscellaneous.html">
-   Miscellaneous
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
     <a class="reference internal" href="Execute%20jobs%20inside%20container.html">
      Execute jobs inside container
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     docker-compose for detached mode
+   <li class="toctree-l2">
+    <a class="reference internal" href="Dockerfile%20template.html">
+     Dockerfile template
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="Miscellaneous.html">
+   Miscellaneous
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Docker%20rootless.html">
+     Docker-rootless
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Update%20only%20one%20container%20service%20via%20docker-compose.html">
-     Update only one container/service via docker-compose
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Micro-services%20with%20Docker.html">
-     Micro-services with Docker
+    <a class="reference internal" href="Docker%20in%20docker.html">
+     Docker in docker
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Avoiding%20Permission%20Issues%20With%20Docker-Created%20Files.html">
      Avoiding Permission Issues With Docker-Created Files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Kill%20container%20from%20inside.html">
-     Kill container from inside
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Troubleshooting.html">
-     Troubleshooting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Duplicate%20running%20docker%20container.html">
-     duplicate running docker container
     </a>
    </li>
   </ul>
@@ -576,20 +559,20 @@ title="Print to PDF"
 <h1>docker-compose for detached mode<a class="headerlink" href="#docker-compose-for-detached-mode" title="Permalink to this headline">#</a></h1>
 <p>#docker #compose #detached #background #interactive #stdin #tty</p>
 <p>you have to use <code class="docutils literal notranslate"><span class="pre">tty:</span> <span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">stdin_open:</span> <span class="pre">true</span></code>. Here is a minimal example:</p>
-<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>version: <span class="s2">&quot;3&quot;</span>
-services:
-  alpine1:
-    image: alpine
-    tty: true
-    stdin_open: true
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3&quot;</span><span class="w"></span>
+<span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">alpine1</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alpine</span><span class="w"></span>
+<span class="w">    </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Start with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span> <span class="o">-</span><span class="n">d</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up -d
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span>docker-compose up --detach
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up --detach
 </pre></div>
 </div>
 </section>
@@ -621,20 +604,6 @@ services:
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Execute%20jobs%20inside%20container.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Execute jobs inside container</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="Update%20only%20one%20container%20service%20via%20docker-compose.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Update only one container/service via docker-compose</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

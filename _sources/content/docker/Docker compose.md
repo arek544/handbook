@@ -1,6 +1,6 @@
 # Docker compose
 
-#docker #compose #run #yaml #example #DockerCompose #detached #background #interactive #stdin #tty
+#docker #compose #run #yaml #example #DockerCompose #detached #background #interactive #stdin #tty #yml
 
 - extends the capabilities of the `docker run` command 
 - lets us define all services (multi-container Docker applications) in a **one configuration file**
@@ -9,7 +9,7 @@
 
 # Example `docker-compose.yaml` file:
 
-```yaml
+```dockerfile
 version: "3.9" # version fo compose file format
 
 services: # all services

@@ -9,6 +9,14 @@
 	```bash
 	docker container ls
 	```
+- start container
+	```bash
+	docker start <container-id/name>
+	```
+- stop container  
+	```bash
+	docker stop <container-id/name>
+	```
 - forcefully stop a running container
 	```bash
 	docker container kill CONTAINER-NAME-OR-ID
@@ -21,7 +29,18 @@
 	```bash
 	docker inspect CONTAINER-NAME-OR-ID
 	``` 
-
+- pause container
+	```bash
+	docker pause <container-id/name>
+	```
+- unpause container  
+	```bash
+	docker unpause <container-id/name>
+	```
+- restart container  
+	```bash
+	docker restart <container-id/name>
+	```
 
 ## `docker images` allows you to manage images, for example:
 
@@ -33,13 +52,10 @@
 	```bash
 	docker image rm IMAGE-NAME
 	```
-- to remove dangling images
+- to remove dangling images (those not attached to a container, or a dependency for an image that is)
 	```bash
 	docker image prune
 	```
-    
-    (those not attached to a container, or a dependency for an image that is)
-
 - to remove all images
 	```bash
 	docker image prune -a

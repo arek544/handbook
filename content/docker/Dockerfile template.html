@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Volumes - Persistent Data in Containers &#8212; The Hitchhiker&#39;s Guide to Data Science</title>
+    <title>Dockerfile template &#8212; The Hitchhiker&#39;s Guide to Data Science</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Advanced" href="Advanced.html" />
-    <link rel="prev" title="Exposing ports" href="Exposing%20ports.html" />
+    <link rel="next" title="Miscellaneous" href="Miscellaneous.html" />
+    <link rel="prev" title="Execute jobs inside container" href="Execute%20jobs%20inside%20container.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -183,16 +183,16 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="Fundamentals.html">
    Fundamentals
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="Build%20a%20image.html">
      Docker build
@@ -218,23 +218,23 @@ const thebe_selector_output = ".output, .cell_output"
      Exposing ports
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="Volumes.html">
      Volumes - Persistent Data in Containers
     </a>
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="Advanced.html">
    Advanced
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="Multi-stage%20build.html">
      Multi-stage build
@@ -260,8 +260,8 @@ const thebe_selector_output = ".output, .cell_output"
      Execute jobs inside container
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Dockerfile%20template.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Dockerfile template
     </a>
    </li>
@@ -468,7 +468,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/docker/Volumes.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/docker/Dockerfile template.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -496,7 +496,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../_sources/content/docker/Volumes.md"
+        <a href="../../_sources/content/docker/Dockerfile template.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -556,23 +556,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#types-of-volumes">
-   3 types of  volumes
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#docker-compose">
-   Docker-compose
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#internal-vs-external-volume">
-   Internal vs External volume
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sharing-volumes">
-   Sharing volumes
+  <a class="reference internal nav-link" href="#container-for-python-data-science-project">
+   Container for python data science project
   </a>
  </li>
 </ul>
@@ -584,7 +569,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Volumes - Persistent Data in Containers</h1>
+                <h1>Dockerfile template</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -595,23 +580,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#types-of-volumes">
-   3 types of  volumes
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#docker-compose">
-   Docker-compose
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#internal-vs-external-volume">
-   Internal vs External volume
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sharing-volumes">
-   Sharing volumes
+  <a class="reference internal nav-link" href="#container-for-python-data-science-project">
+   Container for python data science project
   </a>
  </li>
 </ul>
@@ -624,97 +594,54 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="volumes-persistent-data-in-containers">
-<h1>Volumes - Persistent Data in Containers<a class="headerlink" href="#volumes-persistent-data-in-containers" title="Permalink to this headline">#</a></h1>
-<p>#docker #volume #mapping</p>
-<ul class="simple">
-<li><p>independent from containers</p></li>
-<li><p>mapped to external storage</p></li>
-<li><p>multiple container can access same volume</p></li>
-</ul>
-<blockquote>
-<div><p>Voliums are managed very similarly to images and containers, the commands are analogous</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>create volume</p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker volume create <span class="o">[</span>OPTIONS<span class="o">]</span> my-volume-name
-</pre></div>
-</div>
-<section id="types-of-volumes">
-<h2>3 types of  volumes<a class="headerlink" href="#types-of-volumes" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p>host-mounted volume (volumes sheared between host machine and container)</p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -v /host-folder:/container-folder my-container-name
-</pre></div>
-</div>
-<p><strong>Equivalent <code class="docutils literal notranslate"><span class="pre">--mount</span></code></strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run --mount <span class="nv">source</span><span class="o">=</span>/host-folder,target<span class="o">=</span>/container-folder my-container-name
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>anonymous volume</p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -v /container-folder my-container-name
-</pre></div>
-</div>
-<p>Docker automatically creates mounting folder (<code class="docutils literal notranslate"><span class="pre">/var/lib/docker/volumes/random-hash/_data</span></code>)</p>
-<ul class="simple">
-<li><p>named volume (volumes sheared between a other containers)</p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -v name:/container-folder my-container-name
-</pre></div>
-</div>
-</section>
-<section id="docker-compose">
-<h2>Docker-compose<a class="headerlink" href="#docker-compose" title="Permalink to this headline">#</a></h2>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>version: &quot;3.9&quot; # version fo compose file format
+  <section class="tex2jax_ignore mathjax_ignore" id="dockerfile-template">
+<h1>Dockerfile template<a class="headerlink" href="#dockerfile-template" title="Permalink to this headline">#</a></h1>
+<p>#docker #DockerFile #DataScience #template #setup #CodeSnippet</p>
+<section id="container-for-python-data-science-project">
+<h2>Container for python data science project<a class="headerlink" href="#container-for-python-data-science-project" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code></p>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.8.7</span>
 
-volumes:
-	my-volume:
-		name: my-volume
-		external: true
-	
-services: # all services
-    my-service: # name of single service
-        container_name: my-container-name
-        image: my-image-name
-        build:
-            context: . # where to look for Dockerfile
-            dockerfile: Dockerfile # Dockerfile name
-            target: prod # specification for multi-stage Dockerfile
-        stdin_open: true # to allow detached mode
-        tty: true # to allow detached mode
-        volumes: 
-            - ./host-dir:/dir-in-container # volume mapping
-            - my-volume:/dir-in-container # named volume
-            - /dir-in-container # anonymous volume
-        network_mode: host # use host network
-		ports: 
-			- 80:80 
-	another-service: 
-		image: python # image from DockerHub 
-		depends_on: my-service # this container not going to work unless my-service is running
+<span class="c"># creating an environment variable that holds the project directory</span>
+<span class="k">ENV</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="s2">&quot;/workspace&quot;</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">&quot;${PYTHONPATH}&quot;</span>
 
+<span class="c"># install python dependencies</span>
+<span class="k">RUN</span><span class="w"> </span>pip install pipenv
+<span class="k">COPY</span><span class="w"> </span>requirements.txt .
+<span class="k">RUN</span><span class="w"> </span>pip install -r requirements.txt 
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;jupyter&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lab&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--no-browser&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--allow-root&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-</section>
-<section id="internal-vs-external-volume">
-<h2>Internal vs External volume<a class="headerlink" href="#internal-vs-external-volume" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p>internal named volumes have the scope of a single Docker-compose file and Docker creates them if they don’t exist</p></li>
-<li><p>external named volumes can be used across the Docker installation and they need to be created by the user (otherwise fails) using the <em>docker volume create</em> command.</p></li>
-</ul>
-</section>
-<section id="sharing-volumes">
-<h2>Sharing volumes<a class="headerlink" href="#sharing-volumes" title="Permalink to this headline">#</a></h2>
-<p>We can start a new container using volumes defined in another.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -it --name my-container --volumes-from another-container my-image:my-tag 
+<p>Script to create and start the container:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;data-science-playground&quot;</span>
+docker build -t <span class="nv">$NAME</span> -f Dockerfile .
+docker stop <span class="nv">$NAME</span>
+docker rm <span class="nv">$NAME</span>
+docker run -it -p <span class="m">8888</span>-9000:8888-9000 -v <span class="nv">$PWD</span>:/workspace --name<span class="o">=</span><span class="nv">$NAME</span> <span class="nv">$NAME</span>
 </pre></div>
 </div>
-<p><a class="reference external" href="https://docs.docker.com/storage/volumes/">https://docs.docker.com/storage/volumes/</a>
-<a class="reference external" href="https://devopsheaven.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html">https://devopsheaven.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html</a></p>
+<p>or use following <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> instead:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.9&quot;</span><span class="w"> </span><span class="c1"># version fo compose file format</span><span class="w"></span>
+
+<span class="nt">services</span><span class="p">:</span><span class="w"> </span><span class="c1"># all services</span><span class="w"></span>
+<span class="w">    </span><span class="nt">data-science-playground</span><span class="p">:</span><span class="w"> </span><span class="c1"># name of single service</span><span class="w"></span>
+<span class="w">        </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-science-playground</span><span class="w"></span>
+<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-science-playground</span><span class="w"></span>
+<span class="w">        </span><span class="nt">build</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span><span class="w"> </span><span class="c1"># where to look for Dockerfile</span><span class="w"></span>
+<span class="w">            </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile</span><span class="w"> </span><span class="c1"># Dockerfile name</span><span class="w"></span>
+<span class="w">        </span><span class="nt">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># to allow detached mode</span><span class="w"></span>
+<span class="w">        </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># to allow detached mode</span><span class="w"></span>
+<span class="w">        </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="c1"># volume mapping</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;.:/workspace&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;host&quot;</span><span class="w"> </span><span class="c1"># use host network</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -745,17 +672,17 @@ services: # all services
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Exposing%20ports.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Execute%20jobs%20inside%20container.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Exposing ports</p>
+            <p class="prev-next-title">Execute jobs inside container</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Advanced.html" title="next page">
+    <a class='right-next' id="next-link" href="Miscellaneous.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Advanced</p>
+        <p class="prev-next-title">Miscellaneous</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
