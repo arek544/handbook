@@ -2,7 +2,7 @@
 
 #docker #dockerfile #expose #port #host #network 
 
-In Dockerfile we use line:
+In `Dockerfile` we use line:
 
 ```bash
 EXPOSE 80

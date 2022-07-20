@@ -56,7 +56,10 @@ docker run -itd <docker_image>
 Example with PySpark:
 
 ```bash
-docker run -it -p 8888:8888 -v "$(pwd):/home/jovyan/work" jupyter/pyspark-notebook  --name spark
+docker run -it 
+			-p 8888:8888 
+			-v "$(pwd):/home/jovyan/work" jupyter/pyspark-notebook  
+			--name spark
 ```
 
 The `-v $PWD:/home/jovyan/work` allows us to map our `spark-docker` folder (which should be our current directory - $PWD) to the container’s `/home/joyvan/work` working directory (i.e., the directory the Jupyter notebook will run from).
@@ -108,6 +111,6 @@ docker start <container name or id i.e 903f152e92c5>
 - http://maxmelnick.com/2016/06/04/spark-docker.html
 - http://ondata.blog/articles/getting-started-apache-spark-pyspark-and-jupyter-in-a-docker-container/
 - https://spin.atomicobject.com/2018/10/04/docker-command-line/
-- [How to Use Docker Run Command with Examples (phoenixnap.com)](https://phoenixnap.com/kb/docker-run-command-with-examples) #todo
+- [How to Use Docker Run Command with Examples (phoenixnap.com)](https://phoenixnap.com/kb/docker-run-command-with-examples) 
 
 [https://stackoverflow.com/questions/36249744/interactive-shell-using-docker-compose](https://stackoverflow.com/questions/36249744/interactive-shell-using-docker-compose)

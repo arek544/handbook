@@ -10,8 +10,8 @@
     - how do you access network resources,
     - what ports do you need to map to reach the outside world.
 
-    ![Untitled](ATTACHMENTS/Untitled-3.png)
+![](ATTACHMENTS/Pasted-image-20220720002729.png)
     
 
 ---
-[Dockerfile templates](Dockerfile%20templates.md)
+[Dockerfile template](Dockerfile%20template.md)

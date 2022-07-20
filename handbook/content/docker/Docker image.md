@@ -8,4 +8,4 @@
 - images are defined by **Dockerfile**
 - **running instance** of an image it is a **container**
 
-![docker_image_run.png](ATTACHMENTS/docker_image_run.png)
+![](ATTACHMENTS/Pasted-image-20220720002820.png)
