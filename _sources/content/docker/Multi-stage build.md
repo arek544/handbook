@@ -27,7 +27,6 @@ ENV FLASK_ENV production
 Then you can build one stage or another using the `--target` syntax to build, or a compose file like:
 
 ```yaml
-# docker-compose.yml
 version: '3.4'
 services:
   webapp:
