@@ -9,7 +9,7 @@
 
 # Example `docker-compose.yaml` file:
 
-```dockerfile
+```yaml
 version: "3.9" # version fo compose file format
 
 services: # all services
