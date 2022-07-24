@@ -57,9 +57,9 @@ Example with PySpark:
 
 ```bash
 docker run -it 
-			-p 8888:8888 
-			-v "$(pwd):/home/jovyan/work" jupyter/pyspark-notebook  
-			--name spark
+	-p 8888:8888 
+	-v "$(pwd):/home/jovyan/work" jupyter/pyspark-notebook  
+	--name spark
 ```
 
 The `-v $PWD:/home/jovyan/work` allows us to map our `spark-docker` folder (which should be our current directory - $PWD) to the container’s `/home/joyvan/work` working directory (i.e., the directory the Jupyter notebook will run from).
