@@ -641,14 +641,19 @@ sudo apt install uidmap
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -sSL https://get.docker.com/rootless <span class="p">|</span> sh
 </pre></div>
 </div>
-<p>Now, to be able to use the Docker CLI for your daemon, you need to export some parameters. In your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file, add these three lines :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/sbin
+<p>You need to specify the socket path and the CLI context explicitly.</p>
+<p>In your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file, add these three lines to specify the socket path using <code class="docutils literal notranslate"><span class="pre">$DOCKER_HOST</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/home/<span class="k">$(</span>whoami<span class="k">)</span>/bin:<span class="nv">$PATH</span>
 <span class="nb">export</span> <span class="nv">DOCKER_HOST</span><span class="o">=</span>unix:///run/user/<span class="k">$(</span>id -u<span class="k">)</span>/docker.sock
 </pre></div>
 </div>
 <blockquote>
 <div><p>Warning! docker in rootless mode so the docker.sock file is in $XDG_RUNTIME_DIR/docker.sock, consider this in case of docker-in-docker aplication (Docker in docker)</p>
 </div></blockquote>
+<p>To specify the CLI context using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">context</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker context use rootless
+</pre></div>
+</div>
 <p>Start the Docker daemon with this command :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl --user start docker
 </pre></div>
@@ -663,12 +668,8 @@ sudo loginctl enable-linger &lt;user name&gt;
 </div>
 <hr class="docutils" />
 <p><a class="reference external" href="https://medium.com/&#64;flavienb/installing-and-securing-docker-rootless-for-production-use-8e358d1c0956">https://medium.com/&#64;flavienb/installing-and-securing-docker-rootless-for-production-use-8e358d1c0956</a></p>
-<p><a class="reference external" href="https://pastebin.com/Ay64dj3b">https://pastebin.com/Ay64dj3b</a></p>
-<p>Ustawiamy domyślne dla jsona</p>
-<p>W VSC F1 → Settings (JSON) → “files.associations”:  {”*.json”: “jsonc”}</p>
-<p><a class="reference external" href="https://tiny.pl/92xdd">https://tiny.pl/92xdd</a></p>
-<p>Hasło:</p>
-<p>host_saventic</p>
+<p><a class="reference external" href="https://stackoverflow.com/questions/71322556/rootless-docker-remote-system-and-vs-code-attach-vs-code-to-container-failin">https://stackoverflow.com/questions/71322556/rootless-docker-remote-system-and-vs-code-attach-vs-code-to-container-failin</a></p>
+<p><a class="reference external" href="https://docs.docker.com/engine/security/rootless/">https://docs.docker.com/engine/security/rootless/</a></p>
 </section>
 
     <script type="text/x-thebe-config">

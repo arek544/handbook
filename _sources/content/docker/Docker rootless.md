@@ -17,21 +17,29 @@ Launch the installation script :
 curl -sSL https://get.docker.com/rootless | sh
 ```
 
-Now, to be able to use the Docker CLI for your daemon, you need to export some parameters. In your `~/.bashrc` file, add these three lines :
+You need to specify the socket path and the CLI context explicitly.
+
+In your `~/.bashrc` file, add these three lines to specify the socket path using `$DOCKER_HOST`:
 
 ```bash
-export PATH=$PATH:/sbin
+export PATH=/home/$(whoami)/bin:$PATH
 export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock
 ```
 
 > Warning! docker in rootless mode so the docker.sock file is in $XDG_RUNTIME_DIR/docker.sock, consider this in case of docker-in-docker aplication (Docker in docker)
 > 
 
+To specify the CLI context using `docker context`:
+```bash
+docker context use rootless
+```
+
 Start the Docker daemon with this command :
 
 ```bash
 systemctl --user start docker
 ```
+
 
 # Root user
 
@@ -46,14 +54,6 @@ sudo loginctl enable-linger <user name>
 
 https://medium.com/@flavienb/installing-and-securing-docker-rootless-for-production-use-8e358d1c0956
 
-[https://pastebin.com/Ay64dj3b](https://pastebin.com/Ay64dj3b)
+https://stackoverflow.com/questions/71322556/rootless-docker-remote-system-and-vs-code-attach-vs-code-to-container-failin
 
-Ustawiamy domyślne dla jsona
-
-W VSC F1 → Settings (JSON) → “files.associations”:  {”*.json”: “jsonc”}
-
-[https://tiny.pl/92xdd](https://tiny.pl/92xdd)
-
-Hasło: 
-
-host_saventic
+https://docs.docker.com/engine/security/rootless/
