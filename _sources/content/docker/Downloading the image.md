@@ -1,6 +1,6 @@
 # Downloading the image
 
-#docker #image #download #pull
+`#docker` `#image` `#download` `#pull`
 
 ## Downloading the image 
 (from DockerHub by default)

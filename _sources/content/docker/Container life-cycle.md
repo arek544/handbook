@@ -1,7 +1,6 @@
 # Container life-cycle
 
-#container #docker #LifeCycle #exit #break #kill #stop
-
+`#docker` `#LifeCycle` `#exit` `#break` `#kill` `#stop`
 - container stops when main process exits
 
 ![](ATTACHMENTS/Pasted-image-20220719235340.png)

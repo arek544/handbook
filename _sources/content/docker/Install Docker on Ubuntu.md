@@ -1,6 +1,6 @@
 # Install Docker Ubuntu
 
-#docker #install #ubuntu #unix #linux
+`#docker` `#install` `#ubuntu` `#unix` `#linux`
 
 
 ## Install using the convenience script (RECOMMENDED)

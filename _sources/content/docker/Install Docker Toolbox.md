@@ -1,6 +1,6 @@
 # Install Docker Toolbox
 
-#docker #install #toolbox
+`#docker` `#install` `#toolbox`
 
 ## What you get and how it works
 

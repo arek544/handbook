@@ -1,6 +1,6 @@
 # Avoiding Permission Issues With Docker-Created Files
 
-#docker #permission #create #file #ownership #owner 
+`#docker` `#permission` `#create` `#file` `#ownership` `#owner` 
 
 ## Issue:
 

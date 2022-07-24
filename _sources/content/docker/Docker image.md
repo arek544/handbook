@@ -1,6 +1,6 @@
 # Docker image
 
-#docker #image #explained
+`#docker` `#image` `#explained`
 
 - an immutable **snapshot of an environment**,
 - a template for creating the environment (container) you wanted,

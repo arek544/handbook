@@ -1,6 +1,6 @@
 # Exposing ports
 
-#docker #dockerfile #expose #port #host #network 
+`#docker` `#dockerfile` `#expose` `#port` `#host` `#network` 
 
 In `Dockerfile` we use line:
 

@@ -2,7 +2,7 @@
 
 # What is Docker
 
-#docker #VirtualMachine #explained
+`#docker` `#VirtualMachine` `#explained`
 
 - is a tool for running (develop, deploy) applications in an **isolated environment** (containers) on any hardware,
 - similar to running an application inside a **virtual machine**,

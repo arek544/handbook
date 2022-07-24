@@ -1,6 +1,6 @@
 # Multi-stage build
 
-#build #docker #compose #stage #multi
+`#build` `#docker` `#compose` `#stage` `#multi`
 
 - multi-stage build involves a single Dockerfile to perform multiple stages
 

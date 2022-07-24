@@ -1,6 +1,6 @@
 # Exposing a port on a live Docker container
 
-#docker #port #ip #expose #network 
+`#docker` `#port` `#ip` `#expose` `#network` 
 
 You cannot do this via Docker, but you can access the container’s un-exposed port from the host machine.
 

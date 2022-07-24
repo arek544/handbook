@@ -1,6 +1,6 @@
 # duplicate running docker container
 
-#docker #duplicate #clone #copy #container #running
+`#docker` `#duplicate` `#clone` `#copy` `#container` `#running`
 
 You can create a new image from that container using the `docker commit` command:
 

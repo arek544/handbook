@@ -1,6 +1,6 @@
 # docker-compose for detached mode
 
-#docker #compose #detached #background #interactive #stdin #tty
+`#docker` `#compose` `#detached` `#background` `#interactive` `#stdin` `#tty`
 
 you have to use `tty: true` and `stdin_open: true`. Here is a minimal example:
 

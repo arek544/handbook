@@ -1,6 +1,6 @@
 # Docker build
 
-#docker #build
+`#docker` `#build`
 
 Docker `build` creates Docker images from [Dockerfiles](https://docs.docker.com/engine/reference/builder/).
 
