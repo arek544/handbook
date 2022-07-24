@@ -25,11 +25,9 @@ services: # all services
         volumes: # volume mapping
             - "./host-dir:/dir-in-container"
         network_mode: "host" # use host network
-		ports: 
-			- 80:80 
-	another-service: 
-		image: python # image from DockerHub 
-		depends_on: my-service # this container not going to work unless my-service is running
+    another-service: 
+        image: python # image from DockerHub 
+        depends_on: my-service # this container not going to work unless my-service is running
 ```
 
 To run this use the following command:
