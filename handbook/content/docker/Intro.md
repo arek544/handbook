@@ -6,4 +6,4 @@
 1. [Dockerfile](Dockerfile.md)
 1. [Docker compose ](Docker%20compose.md)
 1. [DockerHub](DockerHub.md)
-1. [Container life-cycle](Container%20life-cycle.md) #todo
+1. [Container life-cycle](Container%20life-cycle.md) 
