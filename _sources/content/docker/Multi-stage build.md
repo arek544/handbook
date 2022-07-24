@@ -6,7 +6,7 @@
 
 You could convert these to a non-traditional multi-stage build with a syntax like (I say non-traditional because you do not perform any copying between the layers and instead use just the from line to pick from a prior stage):
 
-```docker
+```dockerfile
 FROM python:3.6 as base
 RUN apt-get update && apt-get upgrade -y
 RUN pip install pipenv pip

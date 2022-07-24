@@ -638,23 +638,23 @@ title="Print to PDF"
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="example-docker-compose-yaml-file">
 <h1>Example <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file:<a class="headerlink" href="#example-docker-compose-yaml-file" title="Permalink to this headline">#</a></h1>
-<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span>version: <span class="s2">&quot;3.9&quot;</span> # version fo compose file format
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>version: &quot;3.9&quot; # version fo compose file format
 
 services: # all services
     my-service: # name of single service
         container_name: my-container-name
         image: my-image-name
         build:
-            context: . # where to look <span class="k">for</span> Dockerfile
+            context: . # where to look for Dockerfile
             dockerfile: Dockerfile # Dockerfile name
-            target: prod # specification <span class="k">for</span> multi-stage Dockerfile
-        stdin_open: <span class="nb">true</span> # to allow detached mode
-        tty: <span class="nb">true</span> # to allow detached mode
+            target: prod # specification for multi-stage Dockerfile
+        stdin_open: true # to allow detached mode
+        tty: true # to allow detached mode
         volumes: # volume mapping
-            - <span class="s2">&quot;./host-dir:/dir-in-container&quot;</span>
-        network_mode: <span class="s2">&quot;host&quot;</span> # use host network
+            - &quot;./host-dir:/dir-in-container&quot;
+        network_mode: &quot;host&quot; # use host network
 		ports: 
-			- <span class="m">80</span>:80 
+			- 80:80 
 	another-service: 
 		image: python # image from DockerHub 
 		depends_on: my-service # this container not going to work unless my-service is running

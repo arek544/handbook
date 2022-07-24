@@ -564,7 +564,7 @@ title="Print to PDF"
 <li><p>multi-stage build involves a single Dockerfile to perform multiple stages</p></li>
 </ul>
 <p>You could convert these to a non-traditional multi-stage build with a syntax like (I say non-traditional because you do not perform any copying between the layers and instead use just the from line to pick from a prior stage):</p>
-<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.6</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">base</span>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.6</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">base</span>
 <span class="k">RUN</span><span class="w"> </span>apt-get update <span class="o">&amp;&amp;</span> apt-get upgrade -y
 <span class="k">RUN</span><span class="w"> </span>pip install pipenv pip
 <span class="k">COPY</span><span class="w"> </span>Pipfile ./
