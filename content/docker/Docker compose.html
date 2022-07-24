@@ -638,26 +638,24 @@ title="Print to PDF"
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="example-docker-compose-yaml-file">
 <h1>Example <code class="docutils literal notranslate"><span class="pre">docker-compose.yaml</span></code> file:<a class="headerlink" href="#example-docker-compose-yaml-file" title="Permalink to this headline">#</a></h1>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>version: &quot;3.9&quot; # version fo compose file format
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.9&quot;</span><span class="w"> </span><span class="c1"># version fo compose file format</span><span class="w"></span>
 
-services: # all services
-    my-service: # name of single service
-        container_name: my-container-name
-        image: my-image-name
-        build:
-            context: . # where to look for Dockerfile
-            dockerfile: Dockerfile # Dockerfile name
-            target: prod # specification for multi-stage Dockerfile
-        stdin_open: true # to allow detached mode
-        tty: true # to allow detached mode
-        volumes: # volume mapping
-            - &quot;./host-dir:/dir-in-container&quot;
-        network_mode: &quot;host&quot; # use host network
-		ports: 
-			- 80:80 
-	another-service: 
-		image: python # image from DockerHub 
-		depends_on: my-service # this container not going to work unless my-service is running
+<span class="nt">services</span><span class="p">:</span><span class="w"> </span><span class="c1"># all services</span><span class="w"></span>
+<span class="w">    </span><span class="nt">my-service</span><span class="p">:</span><span class="w"> </span><span class="c1"># name of single service</span><span class="w"></span>
+<span class="w">        </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-container-name</span><span class="w"></span>
+<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-image-name</span><span class="w"></span>
+<span class="w">        </span><span class="nt">build</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span><span class="w"> </span><span class="c1"># where to look for Dockerfile</span><span class="w"></span>
+<span class="w">            </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile</span><span class="w"> </span><span class="c1"># Dockerfile name</span><span class="w"></span>
+<span class="w">            </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span><span class="w"> </span><span class="c1"># specification for multi-stage Dockerfile</span><span class="w"></span>
+<span class="w">        </span><span class="nt">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># to allow detached mode</span><span class="w"></span>
+<span class="w">        </span><span class="nt">tty</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># to allow detached mode</span><span class="w"></span>
+<span class="w">        </span><span class="nt">volumes</span><span class="p">:</span><span class="w"> </span><span class="c1"># volume mapping</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;./host-dir:/dir-in-container&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;host&quot;</span><span class="w"> </span><span class="c1"># use host network</span><span class="w"></span>
+<span class="w">    </span><span class="nt">another-service</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w"> </span><span class="c1"># image from DockerHub </span><span class="w"></span>
+<span class="w">        </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-service</span><span class="w"> </span><span class="c1"># this container not going to work unless my-service is running</span><span class="w"></span>
 </pre></div>
 </div>
 <p>To run this use the following command:</p>
