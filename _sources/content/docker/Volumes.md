@@ -40,10 +40,10 @@ docker run -v name:/container-folder my-container-name
 version: "3.9" # version fo compose file format
 
 volumes:
-	my-volume:
-		name: my-volume
-		external: true
-	
+    my-volume:
+        name: my-volume
+        external: true
+
 services: # all services
     my-service: # name of single service
         container_name: my-container-name
@@ -59,12 +59,11 @@ services: # all services
             - my-volume:/dir-in-container # named volume
             - /dir-in-container # anonymous volume
         network_mode: host # use host network
-		ports: 
-			- 80:80 
-	another-service: 
-		image: python # image from DockerHub 
-		depends_on: my-service # this container not going to work unless my-service is running
-
+        ports: 
+            - 80:80 
+    another-service: 
+        image: python # image from DockerHub 
+        depends_on: my-service # this container not going to work unless my-service is running
 ```
 
 ## Internal vs External volume

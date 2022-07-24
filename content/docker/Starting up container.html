@@ -732,9 +732,9 @@ title="Print to PDF"
 </ul>
 <p>Example with PySpark:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -it 
-			-p <span class="m">8888</span>:8888 
-			-v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">:/home/jovyan/work&quot;</span> jupyter/pyspark-notebook  
-			--name spark
+	-p <span class="m">8888</span>:8888 
+	-v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">:/home/jovyan/work&quot;</span> jupyter/pyspark-notebook  
+	--name spark
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">$PWD:/home/jovyan/work</span></code> allows us to map our <code class="docutils literal notranslate"><span class="pre">spark-docker</span></code> folder (which should be our current directory - $PWD) to the container’s <code class="docutils literal notranslate"><span class="pre">/home/joyvan/work</span></code> working directory (i.e., the directory the Jupyter notebook will run from).</p>
