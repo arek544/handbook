@@ -1,6 +1,6 @@
 # Starting up container
 
-#docker #start #container #run #interactive
+`#docker` `#start` `#container` `#run` `#interactive`
 
 ## Starting up the Docker container
 
@@ -66,7 +66,7 @@ The `-v $PWD:/home/jovyan/work` allows us to map our `spark-docker` folder (whic
 
 ## Stopping container
 
-#stop
+`#stop`
 
 ```bash
 docker stop <container name or id>

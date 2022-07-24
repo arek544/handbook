@@ -1,6 +1,6 @@
 # Update only one container/service via docker-compose
 
-#docker #update #container #service
+`#docker` `#update` `#container` `#service`
 
 ```bash
 docker-compose up -d

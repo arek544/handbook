@@ -1,5 +1,5 @@
 # Volumes - Persistent Data in Containers
-#docker #volume #mapping 
+`#docker` `#volume` `#mapping` 
 
 - independent from containers
 - mapped to external storage
@@ -64,6 +64,7 @@ services: # all services
     another-service: 
         image: python # image from DockerHub 
         depends_on: my-service # this container not going to work unless my-service is running
+
 ```
 
 ## Internal vs External volume

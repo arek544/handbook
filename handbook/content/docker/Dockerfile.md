@@ -1,6 +1,6 @@
 # Dockerfile
 
-#dockerfile #intro #explained
+`#dockerfile` `#intro` `#explained`
 
 - **“blueprint”** of Docker image
 - Docker images are defined by Dockerfile,

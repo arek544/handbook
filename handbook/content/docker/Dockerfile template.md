@@ -1,6 +1,6 @@
 # Dockerfile template
 
-#docker #DockerFile #DataScience #template #setup #CodeSnippet
+`#docker` `#DockerFile` `#DataScience` `#template` `#setup` `#CodeSnippet`
 
 ## Container for python data science project
 

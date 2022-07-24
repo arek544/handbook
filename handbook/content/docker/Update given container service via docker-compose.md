@@ -1,6 +1,6 @@
 # Update given container/service via docker-compose
 
-#docker #update #container #service #build #force #rebuild #recreate
+`#docker` `#update` `#container` `#service` `#build` `#force` `#rebuild` `#recreate`
 
 ```bash
 docker-compose up -d

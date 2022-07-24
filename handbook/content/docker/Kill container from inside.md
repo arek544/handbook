@@ -1,6 +1,6 @@
 # Kill container from inside
 
-#kill #remove #container #docker #stop #prune
+`#kill` `#remove` `#container` `#docker` `#stop` `#prune`
 
 ```bash
 host$ docker exec -it <container-name> sh

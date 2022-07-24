@@ -1,6 +1,6 @@
 # Manage containers
 
-#docker #container #volume #kill #close #remove #prune #tag #inspect #ls #list #manage #delete #stop #remove #delete
+`#docker` `#container` `#volume` `#kill` `#close` `#remove` `#prune` `#tag` `#inspect` `#ls` `#list` `#manage` `#delete` `#stop` `#remove` `#delete`
 
 
 ## `docker container` allows you to manage containers, for example:

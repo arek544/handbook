@@ -1,6 +1,6 @@
 ## Containers vs Virtual Machines
 
-#container #docker #VM #virtual #explained
+`#container` `#docker` `#VM` `#virtual` `#explained`
 
 ### TL;DR
 

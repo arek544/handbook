@@ -1,6 +1,6 @@
 # Expose many ports to docker container
 
-#docker #port #expose
+`#docker` `#port` `#expose`
 
 You can expose a range of ports using the `-p` option, for example:
 
