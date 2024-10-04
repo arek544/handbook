@@ -1,10 +1,11 @@
 # The Hitchhiker's Guide to Data Science
 
-## About the author
+## About the authors
 
-I am a machine learning and Python programming enthusiast. Professionally, I work in the area of **machine learning** and **software design architecture**. I am a **PhD** student at the Warsaw University of Technology and the subject of my research is **explainable artificial intelligence**.
+We are passionate about **machine learning**, **data engineering**, and **Python programming**. I am a PhD student at the Warsaw University of Technology, focusing my research on explainable artificial intelligence. My co-author, a skilled software engineer in the automotive industry, brings invaluable expertise in developing and implementing advanced software solutions that address real-world challenges. Together, we combine our academic and industry experiences to explore the dynamic landscape of data science.
 
 ## About this blog
-I would like to share with you my experiences from my journey through the fields of **software engineering**, **data engineering**, **data mining** and **machine learning**. 
+
+Our goal is to share insights and experiences from our journey through the realms of software engineering, data engineering, data mining, and machine learning. We hope to inspire and guide others on their path to mastering data science.
 
 Good luck on your journey to Data Science!
