@@ -41,6 +41,9 @@ parts:
     - file: content/docker/Docker in docker.md
     - file: content/docker/Avoiding Permission Issues With Docker-Created Files.md
 
+- caption: Python
+  chapters: 
+  - file: content/python/async_eventloop_in_action.ipynb
 
 - caption: Unix
   chapters: 
