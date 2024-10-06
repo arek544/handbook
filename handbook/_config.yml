@@ -2,8 +2,9 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: The Hitchhiker's Guide to Data Science
-author: arek544
+author: arek544 & cuboidandroid
 # logo: logo.png
+
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
