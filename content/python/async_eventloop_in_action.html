@@ -600,191 +600,8 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="asyncio-event-loop-in-action">
 <h1>Asyncio Event Loop in Action<a class="headerlink" href="#asyncio-event-loop-in-action" title="Permalink to this headline">#</a></h1>
-<p>Asynchronous tasks are not parallel. That caveat has to be stated upfront. However everytime when our code reaches some external dependency like response from database or web resource we don’t have to hang untill we get our result. In case we have something other to do (and possibly another task that waits to be replied) we can put all those tasks in asyncio event loop. But first let’s see the case in synchronous scenario.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">sleep</span> <span class="k">as</span> <span class="n">asleep</span>
-
-
-<span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">start_sync</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;done process </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_sync</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> seconds from start&#39;</span><span class="p">)</span>
-    <span class="k">return</span>
-
-
-<span class="k">def</span> <span class="nf">run_processes</span><span class="p">():</span>
-    <span class="n">process</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">process</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">process</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="k">return</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>For now we will ignore global variable and the print statement. Process is basically some function that runs exactly n seconds. This might imitate waiting for some database response. We will also introduce function that runs three processes one by one. This should take 2s + 3s + 4s = 9s. To see how long it takes for each process to end I will let them use global variable <code class="docutils literal notranslate"><span class="pre">start_sync</span></code>. Just before returning every function will print its duration. Example is pretty straight forward:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_sync</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">run_processes</span><span class="p">()</span>
-<span class="n">end_sync</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SYNC TIME: &#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">end_sync</span> <span class="o">-</span> <span class="n">start_sync</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done process 2 - 2.0 seconds from start
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done process 3 - 5.0 seconds from start
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done process 4 - 9.0 seconds from start
-SYNC TIME:  9.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now let’s change <code class="docutils literal notranslate"><span class="pre">process</span></code> to <code class="docutils literal notranslate"><span class="pre">aprocess</span></code> which is asynchronous. It also has some sleeping to do, but while it is doing it, await statement lets our program go somewhere else. We will also run these <code class="docutils literal notranslate"><span class="pre">aprocesses</span></code> but we will put them into event loop using <code class="docutils literal notranslate"><span class="pre">asyncio.gather()</span></code> and <code class="docutils literal notranslate"><span class="pre">asyncio.run()</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">def</span> <span class="nf">aprocess</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">start_async</span>
-    <span class="k">await</span> <span class="n">asleep</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;done async process </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_async</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> seconds from start&#39;</span><span class="p">)</span>
-    <span class="k">return</span>
-
-
-<span class="k">async</span> <span class="k">def</span> <span class="nf">run_aprocesses</span><span class="p">():</span>
-    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
-        <span class="n">aprocess</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
-        <span class="n">aprocess</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
-        <span class="n">aprocess</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="k">return</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>And analogously we will report its execution but this time we have to await our gathering function since it is also awaiting for every task to return back to it. Important note here. In jupyter notebook, there is already running event loop, so for now instead of <code class="docutils literal notranslate"><span class="pre">asyncio.run()</span></code> we will just <code class="docutils literal notranslate"><span class="pre">await</span></code>. In other words, we don’t have to create new event loop because jupyter started one for us.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_async</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">await</span> <span class="n">run_aprocesses</span><span class="p">()</span>  <span class="c1"># just await (because of jupyter notebook)</span>
-<span class="n">end_async</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ASYNC TIME: &#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">end_async</span> <span class="o">-</span> <span class="n">start_async</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done async process 2 - 2.0 seconds from start
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done async process 3 - 3.0 seconds from start
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done async process 4 - 4.0 seconds from start
-ASYNC TIME:  4.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>So as you can see, <code class="docutils literal notranslate"><span class="pre">aprocesses</span></code> started almost simultaneously (important word is almost). Every one of them encountered await statement and returned back to loop so it could trigger next task and then it was constantly revisiting tasks to see how they are doing. Hence the total asynchronous time is approximately the same as time of the longest task. To run whole example outside of jupyter notebook I will paste the whole example. See the difference in actually using <code class="docutils literal notranslate"><span class="pre">asyncio.run()</span></code> this time.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">sleep</span> <span class="k">as</span> <span class="n">asleep</span>
-
-
-<span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">start_sync</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;done process </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_sync</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> seconds from start&#39;</span><span class="p">)</span>
-    <span class="k">return</span>
-
-
-<span class="k">def</span> <span class="nf">run_processes</span><span class="p">():</span>
-    <span class="n">process</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">process</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">process</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="k">return</span>
-
-
-<span class="k">async</span> <span class="k">def</span> <span class="nf">aprocess</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">global</span> <span class="n">start_async</span>
-    <span class="k">await</span> <span class="n">asleep</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;done async process </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_async</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> seconds from start&#39;</span><span class="p">)</span>
-    <span class="k">return</span>
-
-
-<span class="k">async</span> <span class="k">def</span> <span class="nf">run_aprocesses</span><span class="p">():</span>
-    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
-        <span class="n">aprocess</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
-        <span class="n">aprocess</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
-        <span class="n">aprocess</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="k">return</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">start_sync</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">run_processes</span><span class="p">()</span>
-    <span class="n">end_sync</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SYNC TIME: &#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">end_sync</span> <span class="o">-</span> <span class="n">start_sync</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="n">start_async</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_aprocesses</span><span class="p">())</span>
-    <span class="n">end_async</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ASYNC TIME: &#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">end_async</span> <span class="o">-</span> <span class="n">start_async</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done process 2 - 2.0 seconds from start
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done process 3 - 5.0 seconds from start
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done process 4 - 9.0 seconds from start
-SYNC TIME:  9.0
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="nn">Input In [5],</span> in <span class="ni">&lt;cell line: 36&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SYNC TIME: &#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">end_sync</span> <span class="o">-</span> <span class="n">start_sync</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="n">start_async</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="ne">---&gt; </span><span class="mi">44</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_aprocesses</span><span class="p">())</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="n">end_async</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ASYNC TIME: &#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">end_async</span> <span class="o">-</span> <span class="n">start_async</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/asyncio/runners.py:33,</span> in <span class="ni">run</span><span class="nt">(main, debug)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="sd">&quot;&quot;&quot;Execute the coroutine and return the result.</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span><span class="sd"> This function runs the passed coroutine, taking care of</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd">     asyncio.run(main())</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="k">if</span> <span class="n">events</span><span class="o">.</span><span class="n">_get_running_loop</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">33</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span>         <span class="s2">&quot;asyncio.run() cannot be called from a running event loop&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">coroutines</span><span class="o">.</span><span class="n">iscoroutine</span><span class="p">(</span><span class="n">main</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;a coroutine was expected, got </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
-
-<span class="ne">RuntimeError</span>: asyncio.run() cannot be called from a running event loop
-</pre></div>
-</div>
-</div>
-</div>
-<p>In next example let’s see how we can look into event loop. Let’s create global logging dictionary called <code class="docutils literal notranslate"><span class="pre">LOGGER</span></code> and global counter called <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code>. We will use this variables to let every task write to it.</p>
+<p>Having some basic knowledge about <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> let’s take a deeper look at event loop running our coroutines (basically awaitable functions in this context). To see this we will let every task update global dictionary and a simple counter.
+Note that some executions in <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> that are commented out, also work, but not in jupyter notebook, since jupyter starts event loop for us at its launch. To run this code outside jupyter, uncomment alternative executions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LOGGER</span> <span class="o">=</span> <span class="p">{}</span>
@@ -799,7 +616,7 @@ SYNC TIME:  9.0
     <span class="k">await</span> <span class="n">asleep</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;duration: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">})</span>
     <span class="n">RUNNING</span> <span class="o">-=</span> <span class="mi">1</span>
-    <span class="k">return</span>
+    <span class="k">return</span> <span class="n">name</span>
 </pre></div>
 </div>
 </div>
@@ -818,6 +635,8 @@ SYNC TIME:  9.0
             <span class="k">break</span>
 
         <span class="k">await</span> <span class="n">asleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="s1">&#39;reader&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -827,43 +646,49 @@ SYNC TIME:  9.0
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tasks_to_complete</span> <span class="o">=</span> <span class="p">[</span><span class="n">some_work</span><span class="p">(</span><span class="s1">&#39;cleaning&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
                      <span class="n">some_work</span><span class="p">(</span><span class="s1">&#39;reading&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
-                     <span class="n">some_work</span><span class="p">(</span><span class="s1">&#39;writing&#39;</span><span class="p">,</span> <span class="mi">14</span><span class="p">)]</span>
+                     <span class="n">some_work</span><span class="p">(</span><span class="s1">&#39;writing&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
 <span class="n">tasks_to_complete</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">read_statuses</span><span class="p">()])</span> <span class="c1"># remember to add our reader to task list!</span>
 
-<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
-<span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>  <span class="c1"># Python 3.10+ specific</span>
-<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks_to_complete</span><span class="p">))</span>
-<span class="n">loop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># outside jupyter:</span>
+<span class="c1"># loop = asyncio.new_event_loop()</span>
+<span class="c1"># asyncio.set_event_loop(loop)  # Python 3.10+ specific</span>
+<span class="c1"># loop.run_until_complete(asyncio.gather(*tasks_to_complete))</span>
+<span class="c1"># loop.close()</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks_to_complete</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 12&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">tasks_to_complete</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">read_statuses</span><span class="p">()])</span> <span class="c1"># remember to add our reader to task list!</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># outside jupyter:</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># loop = asyncio.new_event_loop()</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># asyncio.set_event_loop(loop)  # Python 3.10+ specific</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># loop.run_until_complete(asyncio.gather(*tasks_to_complete))</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="c1"># loop.close()</span>
+<span class="ne">---&gt; </span><span class="mi">12</span> <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks_to_complete</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;asyncio&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
-<p>This one might not work in jupyter notebook so I will paste you what to expect in any other environment:</p>
-<p>uptime: 0.00
-Events in the loop: {‘cleaning’: ‘ONGOING’, ‘reading’: ‘ONGOING’, ‘writing’: ‘ONGOING’}
-Still running: 3</p>
-<p>uptime: 2.00
-Events in the loop: {‘cleaning’: ‘ONGOING’, ‘reading’: ‘ONGOING’, ‘writing’: ‘ONGOING’}
-Still running: 3</p>
-<p>uptime: 4.00
-Events in the loop: {‘cleaning’: ‘duration: 3.00’, ‘reading’: ‘ONGOING’, ‘writing’: ‘ONGOING’}
-Still running: 2</p>
-<p>uptime: 6.00
-Events in the loop: {‘cleaning’: ‘duration: 3.00’, ‘reading’: ‘ONGOING’, ‘writing’: ‘ONGOING’}
-Still running: 2</p>
-<p>uptime: 8.01
-Events in the loop: {‘cleaning’: ‘duration: 3.00’, ‘reading’: ‘duration: 7.00’, ‘writing’: ‘ONGOING’}
-Still running: 1</p>
-<p>uptime: 10.01
-Events in the loop: {‘cleaning’: ‘duration: 3.00’, ‘reading’: ‘duration: 7.00’, ‘writing’: ‘ONGOING’}
-Still running: 1</p>
-<p>uptime: 12.01
-Events in the loop: {‘cleaning’: ‘duration: 3.00’, ‘reading’: ‘duration: 7.00’, ‘writing’: ‘ONGOING’}
-Still running: 1</p>
-<p>uptime: 14.01
-Events in the loop: {‘cleaning’: ‘duration: 3.00’, ‘reading’: ‘duration: 7.00’, ‘writing’: ‘duration: 14.00’}
-Still running: 0</p>
-<p>As you can see, we started three tasks and every two seconds we were reading the current status of event loop contents.</p>
+<p>At the beginning we put four tasks in the loop. One of them spits out what is happening every two seconds. Other tasks at first has <code class="docutils literal notranslate"><span class="pre">status</span></code>: <code class="docutils literal notranslate"><span class="pre">ONGOING</span></code>, which means they have been started but since they hit <code class="docutils literal notranslate"><span class="pre">await</span></code> our program doesn’t have to focus here, it can move to next task (or in other scenario it can redraw GUI so our application is not frozen because we wait for database response). Loop also does remember that every awaitable task at some point will get the response and will be ready to continue, so it revisits them to see if that is the case. After four seconds we can see that task that waited 3 seconds has already been revisited and executed (its status has changed). In real-life scenario we wouldn’t know how long it will take but event loop will take care of it anyways. At some point in time every task has ended and we stop reading. The loop is still running but there is no task to execute. We can also inspect results from tasks but they ofcourse don’t have to return anything.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;cleaning&#39;, &#39;reading&#39;, &#39;writing&#39;, &#39;reader&#39;]
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
