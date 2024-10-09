@@ -604,7 +604,11 @@ title="Print to PDF"
 Note that some executions in <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> that are commented out, also work, but not in jupyter notebook, since jupyter starts event loop for us at its launch. To run this code outside jupyter, uncomment alternative executions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LOGGER</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">sleep</span> <span class="k">as</span> <span class="n">asleep</span>
+
+<span class="n">LOGGER</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">RUNNING</span> <span class="o">=</span> <span class="mi">0</span>
 
 
@@ -660,23 +664,39 @@ Note that some executions in <code class="docutils literal notranslate"><span cl
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 12&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">tasks_to_complete</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">read_statuses</span><span class="p">()])</span> <span class="c1"># remember to add our reader to task list!</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># outside jupyter:</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># loop = asyncio.new_event_loop()</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># asyncio.set_event_loop(loop)  # Python 3.10+ specific</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># loop.run_until_complete(asyncio.gather(*tasks_to_complete))</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="c1"># loop.close()</span>
-<span class="ne">---&gt; </span><span class="mi">12</span> <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks_to_complete</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;asyncio&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>uptime: 0.00
+Events in the loop: {&#39;cleaning&#39;: &#39;ONGOING&#39;, &#39;reading&#39;: &#39;ONGOING&#39;, &#39;writing&#39;: &#39;ONGOING&#39;}
+Still running: 3
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>uptime: 2.00
+Events in the loop: {&#39;cleaning&#39;: &#39;ONGOING&#39;, &#39;reading&#39;: &#39;ONGOING&#39;, &#39;writing&#39;: &#39;ONGOING&#39;}
+Still running: 3
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>uptime: 4.00
+Events in the loop: {&#39;cleaning&#39;: &#39;duration: 3.00&#39;, &#39;reading&#39;: &#39;ONGOING&#39;, &#39;writing&#39;: &#39;ONGOING&#39;}
+Still running: 2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>uptime: 6.01
+Events in the loop: {&#39;cleaning&#39;: &#39;duration: 3.00&#39;, &#39;reading&#39;: &#39;ONGOING&#39;, &#39;writing&#39;: &#39;ONGOING&#39;}
+Still running: 2
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>uptime: 8.01
+Events in the loop: {&#39;cleaning&#39;: &#39;duration: 3.00&#39;, &#39;reading&#39;: &#39;duration: 7.00&#39;, &#39;writing&#39;: &#39;ONGOING&#39;}
+Still running: 1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>uptime: 10.01
+Events in the loop: {&#39;cleaning&#39;: &#39;duration: 3.00&#39;, &#39;reading&#39;: &#39;duration: 7.00&#39;, &#39;writing&#39;: &#39;duration: 10.00&#39;}
+Still running: 0
 </pre></div>
 </div>
 </div>
 </div>
-<p>At the beginning we put four tasks in the loop. One of them spits out what is happening every two seconds. Other tasks at first has <code class="docutils literal notranslate"><span class="pre">status</span></code>: <code class="docutils literal notranslate"><span class="pre">ONGOING</span></code>, which means they have been started but since they hit <code class="docutils literal notranslate"><span class="pre">await</span></code> our program doesn’t have to focus here, it can move to next task (or in other scenario it can redraw GUI so our application is not frozen because we wait for database response). Loop also does remember that every awaitable task at some point will get the response and will be ready to continue, so it revisits them to see if that is the case. After four seconds we can see that task that waited 3 seconds has already been revisited and executed (its status has changed). In real-life scenario we wouldn’t know how long it will take but event loop will take care of it anyways. At some point in time every task has ended and we stop reading. The loop is still running but there is no task to execute. We can also inspect results from tasks but they ofcourse don’t have to return anything.</p>
+<p>At the beginning we put four tasks in the loop. One of them spits out what is happening every two seconds. Other tasks at first has <code class="docutils literal notranslate"><span class="pre">status</span></code>: <code class="docutils literal notranslate"><span class="pre">ONGOING</span></code>, which means they have been started but since they hit <code class="docutils literal notranslate"><span class="pre">await</span></code> our program doesn’t have to focus here, it can move to next task (or in other scenario it can redraw GUI so our application is not frozen because we wait for database response). Loop also does remember that every awaitable task at some point will get the response and will be ready to continue, so it revisits them to see if that is the case. After four seconds we can see that task that waited 3 seconds has already been revisited and executed (its status has changed). In real-life scenario we wouldn’t know how long it will take but event loop will take care of it anyways. At some point in time every task has ended and we stop reading. The loop is still running but there is no task to execute. We can also inspect results from tasks but they of course don’t have to return anything.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
