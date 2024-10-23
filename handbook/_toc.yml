@@ -44,6 +44,7 @@ parts:
 - caption: Python
   chapters: 
   - file: content/python/async_eventloop_in_action.ipynb
+  - file: content/python/logging_with_multiprocessing.ipynb
 
 - caption: Unix
   chapters: 
