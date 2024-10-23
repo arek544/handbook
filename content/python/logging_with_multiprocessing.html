@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Python fanout with error prone tasks. &#8212; The Hitchhiker&#39;s Guide to Data Science</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">The Hitchhiker's Guide to Data Science</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    The Hitchhiker’s Guide to Data Science
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Docker
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../docker/Intro.html">
+   Intro
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/What%20is%20Docker.html">
+     What is Docker
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Containers%20vs%20Virtual%20Machines.html">
+     Containers vs Virtual Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Docker%20image.html">
+     Docker image
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Dockerfile.html">
+     Dockerfile
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Docker%20compose.html">
+     Docker compose
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/DockerHub.html">
+     DockerHub
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Container%20life-cycle.html">
+     Container life-cycle
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../docker/Setup.html">
+   Setup
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Install%20Docker%20on%20Ubuntu.html">
+     Install Docker Ubuntu
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Install%20Docker%20Toolbox.html">
+     Install Docker Toolbox
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../docker/Fundamentals.html">
+   Fundamentals
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Build%20a%20image.html">
+     Docker build
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Downloading%20the%20image.html">
+     Downloading the image
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Starting%20up%20container.html">
+     Starting up container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Manage%20containers%20and%20images.html">
+     Manage containers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Exposing%20ports.html">
+     Exposing ports
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Volumes.html">
+     Volumes - Persistent Data in Containers
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../docker/Advanced.html">
+   Advanced
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Multi-stage%20build.html">
+     Multi-stage build
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Duplicate%20running%20docker%20container.html">
+     duplicate running docker container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Update%20given%20container%20service%20via%20docker-compose.html">
+     Update given container/service via docker-compose
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Expose%20range%20of%20ports%20to%20docker%20container.html">
+     Expose many ports to docker container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Execute%20jobs%20inside%20container.html">
+     Execute jobs inside container
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Dockerfile%20template.html">
+     Dockerfile template
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../docker/Miscellaneous.html">
+   Miscellaneous
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Docker%20rootless.html">
+     Docker-rootless
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Docker%20in%20docker.html">
+     Docker in docker
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../docker/Avoiding%20Permission%20Issues%20With%20Docker-Created%20Files.html">
+     Avoiding Permission Issues With Docker-Created Files
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="async_eventloop_in_action.html">
+   Asyncio Event Loop in Action
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Unix
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../unix/Unix%20-%20intro.html">
+   Soon
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Virtual environments
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../virtual_environments/virtualenv.html">
+   Soon
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Jupyter Notebook &amp; Jupyter Lab
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../jupyter/init.html">
+   Soon
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Git &amp; GitHub
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../git_github/init.html">
+   Soon
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Visual Studio Code
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../vsc/init.html">
+   Soon
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Apache Airflow
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../airflow/init.html">
+   Soon
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Data Version Control
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dvc/init.html">
+   Soon
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/content/python/logging_with_multiprocessing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcontent/python/logging_with_multiprocessing.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/content/python/logging_with_multiprocessing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Python fanout with error prone tasks.</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="python-fanout-with-error-prone-tasks">
+<h1>Python fanout with error prone tasks.<a class="headerlink" href="#python-fanout-with-error-prone-tasks" title="Permalink to this headline">#</a></h1>
+<p>Supposedly you have tasks to be done parallely but some of them are prone to failure. Let’s define such piece of work using python.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">class</span> <span class="nc">CustomError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">random_error</span><span class="p">():</span> <span class="c1"># return random error from three pre-defined ones.</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="n">CustomError</span><span class="p">(</span><span class="s2">&quot;I hate mondays&quot;</span><span class="p">),</span> 
+                             <span class="n">CustomError</span><span class="p">(</span><span class="s2">&quot;I am lazy&quot;</span><span class="p">),</span> 
+                             <span class="n">CustomError</span><span class="p">(</span><span class="s2">&quot;I would if I could&quot;</span><span class="p">)])</span>
+
+<span class="k">def</span> <span class="nf">sketchy_work</span><span class="p">(</span><span class="n">prob_of_fail</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span> <span class="c1"># return token or raise error with probability prob_of_fail</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">prob_of_fail</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">random_error</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">token</span>
+
+<span class="n">sketchy_work</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="s1">&#39;some_value&#39;</span><span class="p">)</span> <span class="c1"># 90% of time it will raise one of custom errors defined earlier</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">CustomError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">9</span><span class="n">c81dc54b73f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>         <span class="k">return</span> <span class="n">token</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> 
+<span class="ne">---&gt; </span><span class="mi">19</span> <span class="n">sketchy_work</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="s1">&#39;some_value&#39;</span><span class="p">)</span>
+
+<span class="nn">&lt;ipython-input-3-9c81dc54b73f&gt;</span> in <span class="ni">sketchy_work</span><span class="nt">(prob_of_fail, token)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">prob_of_fail</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">15</span>         <span class="k">raise</span> <span class="n">random_error</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>         <span class="k">return</span> <span class="n">token</span>
+
+<span class="ne">CustomError</span>: I would if I could
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can build a simple wrapper to put our <code class="docutils literal notranslate"><span class="pre">sketchy_work</span></code> in a try-catch statement, like so:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sketchy_work_wrapper</span><span class="p">(</span><span class="n">prob_of_fail</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sketchy_work</span><span class="p">(</span><span class="n">prob_of_fail</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+<span class="n">sketchy_work_wrapper</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="s1">&#39;some_work&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I am lazy
+</pre></div>
+</div>
+</div>
+</div>
+<p>But when running a fanout using multiprocessing returning error from process is not that easy. They do not appear in any predictable order, and sometimes not every error is populated for the user to view it. So dealing with it, I found it difficult to report all the issues. Let us modify this code a bit. We will add shared variables which for now will not make that much sense but stay with me for a bit longer. It will get clear soon.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sketchy_work_wrapper</span><span class="p">(</span><span class="n">prob_of_fail</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span>
+                         <span class="n">shared_success_counter</span><span class="p">,</span>
+                         <span class="n">shared_skips_counter</span><span class="p">,</span>
+                         <span class="n">shared_skip_reasons</span><span class="p">,</span>
+                         <span class="n">shared_lock</span><span class="p">):</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sketchy_work</span><span class="p">(</span><span class="n">prob_of_fail</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">shared_lock</span><span class="p">:</span>
+            <span class="n">shared_success_counter</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">shared_lock</span><span class="p">:</span>
+            <span class="n">shared_skip_reasons</span><span class="p">[</span><span class="n">token</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">shared_skips_counter</span><span class="o">.</span><span class="n">value</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Modified code uses shared variables which are a special variables provided by multiprocessing library. These values are shared between processes, but to prevent data raids, we will also include a <code class="docutils literal notranslate"><span class="pre">Lock()</span></code> object, which ensures our variable is not accessed when its value is already in modification by other process. A one of famous actions that we want to prevent is for instance one process taking counter value <code class="docutils literal notranslate"><span class="pre">n</span></code> and before updating it to <code class="docutils literal notranslate"><span class="pre">n+1</span></code> other process takes value <code class="docutils literal notranslate"><span class="pre">n</span></code> and after first returns <code class="docutils literal notranslate"><span class="pre">n+1</span></code> second process also returns <code class="docutils literal notranslate"><span class="pre">n+1</span></code> which is wrong because our counter should be <code class="docutils literal notranslate"><span class="pre">n+2</span></code> at this point. This is what I call “accessing an obsolete value”. Putting an action of modifing variable in a <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">Lock()</span></code> statement, it ensures this scenario will not happen. For dictionary variable, every process is only modyfing its own entry, hence this will not happen, but we still can use lock as it will not harm our code. Now let’s see how we introduce all those variables, and how we will conduct fanout with multiprocessing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parallel_wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+
+    <span class="k">with</span> <span class="n">mp</span><span class="o">.</span><span class="n">Manager</span><span class="p">()</span> <span class="k">as</span> <span class="n">mgr</span><span class="p">:</span>
+        <span class="n">shared_lock</span> <span class="o">=</span> <span class="n">mgr</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="n">shared_success_counter</span> <span class="o">=</span> <span class="n">mgr</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s1">&#39;successes&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">shared_skips_counter</span> <span class="o">=</span> <span class="n">mgr</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s1">&#39;skips&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">shared_skip_reasons</span> <span class="o">=</span> <span class="n">mgr</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">())</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="p">[(</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span>
+                          <span class="n">shared_success_counter</span><span class="p">,</span>
+                          <span class="n">shared_skips_counter</span><span class="p">,</span>
+                          <span class="n">shared_skip_reasons</span><span class="p">,</span>
+                          <span class="n">shared_lock</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)])</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First we will open shared context manager and introduce our variables. Then we will introduce a <code class="docutils literal notranslate"><span class="pre">Pool</span></code> with number of processes that our machine can handle using <code class="docutils literal notranslate"><span class="pre">mp.cpu_count()</span></code> method. Then we will use starmap to map executions to processes. In my case I will prepare 20 different executions (with probability of failure of 60%) and map them to my 8 cpu’s. Since every execution is sleeping for 1 second, I should expect for this to run about ceil(20/8) = 3 seconds. But before that we still would like to use those shared variables somehow for instance preparing some usefull information.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parallel_wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+
+    <span class="k">with</span> <span class="n">mp</span><span class="o">.</span><span class="n">Manager</span><span class="p">()</span> <span class="k">as</span> <span class="n">mgr</span><span class="p">:</span>
+        <span class="n">shared_lock</span> <span class="o">=</span> <span class="n">mgr</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="n">shared_success_counter</span> <span class="o">=</span> <span class="n">mgr</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s1">&#39;successes&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">shared_skips_counter</span> <span class="o">=</span> <span class="n">mgr</span><span class="o">.</span><span class="n">Value</span><span class="p">(</span><span class="s1">&#39;skips&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">shared_skip_reasons</span> <span class="o">=</span> <span class="n">mgr</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">AVAILABLE_COMPUTING_POWER</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="p">[(</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span>
+                          <span class="n">shared_success_counter</span><span class="p">,</span>
+                          <span class="n">shared_skips_counter</span><span class="p">,</span>
+                          <span class="n">shared_skip_reasons</span><span class="p">,</span>
+                          <span class="n">shared_lock</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)])</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+        <span class="c1"># NEW</span>
+        <span class="n">wrapper_successes</span> <span class="o">=</span> <span class="n">shared_success_counter</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">wrapper_skips</span> <span class="o">=</span> <span class="n">shared_skips_counter</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">wrapper_reasons</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">shared_skip_reasons</span><span class="p">)</span>
+
+    <span class="n">most_common_skips</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">wrapper_reasons</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">most_common_skips</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;occurred: </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> | reason: </span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SUCCEEDED: </span><span class="si">{</span><span class="n">wrapper_successes</span><span class="si">}</span><span class="s2">, SKIPPED: </span><span class="si">{</span><span class="n">wrapper_skips</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Modifying and printing those variables should benefit our understanding of how executions went. Now it is time to execute all this. Full example below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import numpy as np</span>
+<span class="c1"># import multiprocessing as mp</span>
+<span class="c1"># import time</span>
+<span class="c1"># from collections import Counter</span>
+
+<span class="c1"># AVAILABLE_COMPUTING_POWER = mp.cpu_count()</span>
+
+<span class="c1"># class CustomError(Exception):</span>
+<span class="c1">#     pass</span>
+
+<span class="c1"># def random_error():</span>
+<span class="c1">#     return np.random.choice([CustomError(&quot;I hate mondays&quot;), </span>
+<span class="c1">#                              CustomError(&quot;I am lazy&quot;), </span>
+<span class="c1">#                              CustomError(&quot;I would if I could&quot;)])</span>
+
+<span class="c1"># def sketchy_work(prob_of_fail, token):</span>
+<span class="c1">#     time.sleep(1)</span>
+<span class="c1">#     if np.random.uniform() &lt;= prob_of_fail:</span>
+<span class="c1">#         raise random_error()</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         return token</span>
+
+<span class="c1"># def sketchy_work_wrapper(prob_of_fail, token,</span>
+<span class="c1">#                          shared_success_counter,</span>
+<span class="c1">#                          shared_skips_counter,</span>
+<span class="c1">#                          shared_skip_reasons,</span>
+<span class="c1">#                          shared_lock):</span>
+
+<span class="c1">#     try:</span>
+<span class="c1">#         sketchy_work(prob_of_fail, token)</span>
+<span class="c1">#         with shared_lock:</span>
+<span class="c1">#             shared_success_counter.value += 1</span>
+<span class="c1">#     except Exception as e:</span>
+<span class="c1">#         with shared_lock:</span>
+<span class="c1">#             shared_skip_reasons[token] = str(e)</span>
+<span class="c1">#             shared_skips_counter.value += 1</span>
+
+
+<span class="c1"># def parallel_wrapper(func):</span>
+
+<span class="c1">#     with mp.Manager() as mgr:</span>
+<span class="c1">#         shared_lock = mgr.Lock()</span>
+<span class="c1">#         shared_success_counter = mgr.Value(&#39;successes&#39;, 0)</span>
+<span class="c1">#         shared_skips_counter = mgr.Value(&#39;skips&#39;, 0)</span>
+<span class="c1">#         shared_skip_reasons = mgr.dict()</span>
+
+<span class="c1">#         p = mp.Pool(AVAILABLE_COMPUTING_POWER)</span>
+<span class="c1">#         p.starmap(func, [(0.6, i,</span>
+<span class="c1">#                           shared_success_counter,</span>
+<span class="c1">#                           shared_skips_counter,</span>
+<span class="c1">#                           shared_skip_reasons,</span>
+<span class="c1">#                           shared_lock) for i in range(20)])</span>
+<span class="c1">#         p.close()</span>
+<span class="c1">#         p.join()</span>
+
+<span class="c1">#         wrapper_successes = shared_success_counter.value</span>
+<span class="c1">#         wrapper_skips = shared_skips_counter.value</span>
+<span class="c1">#         wrapper_reasons = dict(shared_skip_reasons)</span>
+
+<span class="c1">#     most_common_skips = Counter(wrapper_reasons.values()).most_common()</span>
+<span class="c1">#     message = &#39;\n&#39;</span>
+<span class="c1">#     for s in most_common_skips:</span>
+<span class="c1">#         message += f&quot;occurred: {s[1]} | reason: {s[0]}\n&quot;</span>
+
+<span class="c1">#     print(f&quot;SUCCEEDED: {wrapper_successes}, SKIPPED: {wrapper_skips}&quot;)</span>
+<span class="c1">#     print(message)</span>
+
+<span class="c1"># # NEW</span>
+<span class="c1"># if __name__ == &#39;__main__&#39;:</span>
+<span class="c1">#     start = time.time()</span>
+<span class="c1">#     parallel_wrapper(sketchy_work_wrapper)</span>
+<span class="c1">#     print(f&quot;RAN ON {AVAILABLE_COMPUTING_POWER} PROCESSES, IN {time.time()-start:.2f}[s]\n\n&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./content/python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By arek544 & cuboidandroid<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
