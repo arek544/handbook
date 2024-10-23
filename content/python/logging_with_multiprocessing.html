@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Python fanout with error prone tasks. &#8212; The Hitchhiker&#39;s Guide to Data Science</title>
+    <title>Python fanout with error prone tasks &#8212; The Hitchhiker&#39;s Guide to Data Science</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -308,7 +308,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Python fanout with error prone tasks.
+   Python fanout with error prone tasks
   </a>
  </li>
 </ul>
@@ -591,7 +591,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Python fanout with error prone tasks.</h1>
+                <h1>Python fanout with error prone tasks</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -604,7 +604,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="python-fanout-with-error-prone-tasks">
-<h1>Python fanout with error prone tasks.<a class="headerlink" href="#python-fanout-with-error-prone-tasks" title="Permalink to this headline">#</a></h1>
+<h1>Python fanout with error prone tasks<a class="headerlink" href="#python-fanout-with-error-prone-tasks" title="Permalink to this headline">#</a></h1>
 <p>Supposedly you have tasks to be done parallely but some of them are prone to failure. Let’s define such a piece of work using python.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -690,7 +690,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>Modified code uses shared variables which are a special variables provided by multiprocessing library. These values are shared between processes, but to prevent data raids, we will also include a <code class="docutils literal notranslate"><span class="pre">Lock()</span></code> object, which ensures our variable is not accessed when its value is already in modification by other process. A one of famous actions that we want to prevent is for instance one process taking counter value <code class="docutils literal notranslate"><span class="pre">n</span></code> and before updating it to <code class="docutils literal notranslate"><span class="pre">n+1</span></code> other process takes value <code class="docutils literal notranslate"><span class="pre">n</span></code> and after first returns <code class="docutils literal notranslate"><span class="pre">n+1</span></code> second process also returns <code class="docutils literal notranslate"><span class="pre">n+1</span></code> which is wrong because our counter should be <code class="docutils literal notranslate"><span class="pre">n+2</span></code> at this point. This is what I call “accessing an obsolete value”. Putting an action of modifing variable in a <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">Lock()</span></code> statement, it ensures this scenario will not happen. For dictionary variable, every process is only modyfing its own entry, hence this will not happen, but we still can use lock as it will not harm our code. Now let’s see how we introduce all those variables, and how we will conduct fanout with multiprocessing.</p>
+<p>Modified code uses shared variables which are a special variables provided by multiprocessing library. These values are shared between processes, but to prevent data raids, we will also include a <code class="docutils literal notranslate"><span class="pre">Lock()</span></code> object, which ensures our variable is not accessed when its value is already in modification by other process. One of famous actions that we want to prevent is for instance one process taking counter value <code class="docutils literal notranslate"><span class="pre">n</span></code> and before updating it to <code class="docutils literal notranslate"><span class="pre">n+1</span></code> other process takes value <code class="docutils literal notranslate"><span class="pre">n</span></code> and after first returns <code class="docutils literal notranslate"><span class="pre">n+1</span></code> second process also returns <code class="docutils literal notranslate"><span class="pre">n+1</span></code> which is wrong because our counter should be <code class="docutils literal notranslate"><span class="pre">n+2</span></code> at this point. This is what I call “accessing an obsolete value”. Putting an action of modifing variable in a <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">Lock()</span></code> statement, ensures this scenario will not happen. For dictionary variable, every process is only modyfing its own entry, hence this will not happen, but we still can use lock as it will not harm our code. Now let’s see how we introduce all those variables, and how we will conduct fanout with multiprocessing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parallel_wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -713,7 +713,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>First we will open shared context manager and introduce our variables. Then we will introduce a <code class="docutils literal notranslate"><span class="pre">Pool</span></code> with number of processes that our machine can handle using <code class="docutils literal notranslate"><span class="pre">mp.cpu_count()</span></code> method. Then we will use starmap to map executions to processes. In my case I will prepare 20 different executions (with probability of failure of 60%) and map them to my 8 cpu’s. Since every execution is sleeping for 1 second, I should expect for this to run about ceil(20/8) = 3 seconds. But before that we still would like to use those shared variables somehow for instance preparing some usefull information.</p>
+<p>First we will open shared context manager and introduce our variables. Then we will introduce a <code class="docutils literal notranslate"><span class="pre">Pool</span></code> with number of processes that our machine can handle using <code class="docutils literal notranslate"><span class="pre">mp.cpu_count()</span></code> method. Then we will use starmap to map executions to processes. In my case I will prepare 20 different executions (with probability of failure of 60%) and map them to my 8 cpu’s. Since every execution is sleeping for 1 second, I should expect for this to run about ceil(20/8) = 3 seconds. But before that we still would like to use those shared variables somehow for instance preparing some useful information.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parallel_wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -830,6 +830,7 @@ title="Print to PDF"
 </div>
 <p>Example output:</p>
 <p><img alt="output" src="../../_images/mp_example.png" /></p>
+<p>A clean way that will increase our awareness and make such processes easier to deal with.</p>
 </section>
 
     <script type="text/x-thebe-config">
